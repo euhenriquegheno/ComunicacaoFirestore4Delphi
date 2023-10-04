@@ -1,0 +1,78 @@
+unit uPrincipal;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, IdBaseComponent, IdComponent, IdTCPConnection,
+  IdTCPClient, IdHTTP, IdIOHandler, IdIOHandlerSocket, IdSSLOpenSSL;
+
+type
+  TfrmPrincipal = class(TForm)
+    edtUserEmail: TEdit;
+    edtSenha: TEdit;
+    edtCampo1: TEdit;
+    edtVlrCampo1: TEdit;
+    edtCampo2: TEdit;
+    edtVlrCampo2: TEdit;
+    edtCampo3: TEdit;
+    edtVlrCampo3: TEdit;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
+    Label8: TLabel;
+    Memo1: TMemo;
+    btnLogin: TButton;
+    btnCarregarChave: TButton;
+    btnEnviarDados: TButton;
+    btnDelete: TButton;
+    IdHTTP1: TIdHTTP;
+    IdSSLIOHandlerSocket1: TIdSSLIOHandlerSocket;
+    procedure btnCarregarChaveClick(Sender: TObject);
+    procedure btnLoginClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    function autenticarUsuario(const email, password : string): string;
+  end;
+
+var
+  frmPrincipal: TfrmPrincipal;
+
+  function GetHttp(pUrl, pToken : WideString) : WideString; stdcall; external 'metodosHttp.dll';
+  function PostHttp(pUrl, pToken, pPayload : WideString) : WideString; stdcall; external 'metodosHttp.dll';
+  function PostHttpJson(pUrl, pToken : WideString; pPayload : TStringStream) : WideString; stdcall; external 'metodosHttp.dll'
+
+implementation
+
+{$R *.dfm}
+
+procedure TfrmPrincipal.btnCarregarChaveClick(Sender: TObject);
+var response, url : WideString;
+begin
+  url := 'https://firestore.googleapis.com/v1/projects/posapp-1d5d5/databases/(default)/documents/Vendas';
+  response := GetHttp(url, '');
+
+end;
+
+function TfrmPrincipal.autenticarUsuario(const email,
+  password: string): string;
+var response, jsonRequest : WideString;
+  url : string;
+begin
+  jsonRequest := TStringStream.Create('{"email":"' + Email + '","password":"' + Password + '","returnSecureToken":true}');
+
+  url := 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCHI2Cqm5FowD-mJbRPrKPoVidH_CZHF74';
+  response := PostHttp(url, '', jsonRequest);
+end;
+
+procedure TfrmPrincipal.btnLoginClick(Sender: TObject);
+begin
+  autenticarUsuario(edtUserEmail.Text, edtSenha.Text);
+end;
+
+end.

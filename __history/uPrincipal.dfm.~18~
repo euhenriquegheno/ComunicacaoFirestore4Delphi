@@ -1,0 +1,128 @@
+object frmPrincipal: TfrmPrincipal
+  Left = 192
+  Top = 145
+  Caption = 'Principal'
+  ClientHeight = 592
+  ClientWidth = 691
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  Font.Style = []
+  OldCreateOrder = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Label1: TLabel
+    Left = 32
+    Top = 181
+    Width = 52
+    Height = 13
+    Caption = 'User email:'
+  end
+  object Label2: TLabel
+    Left = 328
+    Top = 181
+    Width = 31
+    Height = 13
+    Caption = 'Senha'
+  end
+  object Label3: TLabel
+    Left = 15
+    Top = 206
+    Width = 67
+    Height = 13
+    Caption = 'Id Documento'
+  end
+  object edtUserEmail: TEdit
+    Left = 88
+    Top = 176
+    Width = 232
+    Height = 21
+    TabOrder = 0
+    Text = 'suporte@alfasistemas.com.br'
+  end
+  object edtSenha: TEdit
+    Left = 368
+    Top = 176
+    Width = 217
+    Height = 21
+    TabOrder = 1
+    Text = '#123alfa321@'
+  end
+  object mmToken: TMemo
+    Left = 0
+    Top = 298
+    Width = 691
+    Height = 152
+    Align = alBottom
+    Lines.Strings = (
+      '')
+    ScrollBars = ssVertical
+    TabOrder = 2
+    ExplicitTop = 152
+  end
+  object btnLogin: TButton
+    Left = 600
+    Top = 171
+    Width = 73
+    Height = 25
+    Caption = 'Login'
+    TabOrder = 3
+    OnClick = btnLoginClick
+  end
+  object btnGet: TButton
+    Left = 160
+    Top = 240
+    Width = 105
+    Height = 25
+    Caption = 'Get'
+    TabOrder = 4
+    OnClick = btnGetClick
+  end
+  object btnPost: TButton
+    Left = 288
+    Top = 240
+    Width = 105
+    Height = 25
+    Caption = 'Post'
+    TabOrder = 5
+    OnClick = btnPostClick
+  end
+  object btnDelete: TButton
+    Left = 424
+    Top = 240
+    Width = 105
+    Height = 25
+    Caption = 'Delete'
+    TabOrder = 6
+    OnClick = btnDeleteClick
+  end
+  object Memo1: TMemo
+    Left = 0
+    Top = 450
+    Width = 691
+    Height = 142
+    Align = alBottom
+    Lines.Strings = (
+      '')
+    ScrollBars = ssVertical
+    TabOrder = 7
+    ExplicitTop = 304
+  end
+  object edtIdDocumento: TEdit
+    Left = 88
+    Top = 203
+    Width = 217
+    Height = 21
+    TabOrder = 8
+  end
+  object edtChaveApiWeb: TEdit
+    Left = 72
+    Top = 32
+    Width = 121
+    Height = 21
+    TabOrder = 9
+    Text = 'edtChaveApiWeb'
+  end
+end
