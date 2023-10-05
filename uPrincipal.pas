@@ -32,15 +32,19 @@ type
     Label7: TLabel;
     edtColecaoDelete: TEdit;
     Label8: TLabel;
+    btnRenovaToken: TButton;
+    mmRefreshToken: TMemo;
     procedure btnGetClick(Sender: TObject);
     procedure btnLoginClick(Sender: TObject);
     procedure btnPostClick(Sender: TObject);
     procedure btnDeleteClick(Sender: TObject);
+    procedure btnRenovaTokenClick(Sender: TObject);
   private
     function ExtractFieldFromJson(const jsonString: WideString; field: string): string;
   public
     function autenticarUsuario(const email, password : string): string;
     function PostHttp(pUrl, pToken, pPayload : WideString) : WideString;
+    function PostHttpFormData(pUrl, pToken : WideString; pPayload : String) : WideString; stdcall;
     function GetHttp(pUrl, pToken : WideString) : WideString;
     function DeleteHttp(pUrl, pToken : WideString): WideString;
   end;
@@ -129,6 +133,13 @@ begin
   Memo1.Text := response;
 end;
 
+procedure TfrmPrincipal.btnRenovaTokenClick(Sender: TObject);
+var urlPost, retornoTokenAtualizado : WideString;
+begin
+  urlPost := 'https://securetoken.googleapis.com/v1/token?key=AIzaSyCHI2Cqm5FowD-mJbRPrKPoVidH_CZHF74';
+  retornoTokenAtualizado := PostHttpFormData(urlPost, '', '&grant_type=refresh_token&refresh_token=' + mmRefreshToken.Text);
+end;
+
 function TfrmPrincipal.autenticarUsuario(const email,
   password: string): string;
 var response, jsonRequest : WideString;
@@ -141,6 +152,7 @@ begin
   response := PostHttp(url, '', jsonRequest);
 
   idToken := ExtractFieldFromJson(response, 'idToken');
+  mmRefreshToken.Text := ExtractFieldFromJson(response, 'refreshToken');
   mmToken.Text := idToken;
 end;
 
@@ -264,6 +276,56 @@ begin
     else
       result := 'erro';
   finally
+    resp.Free;
+    http.Free;
+  end;
+end;
+
+function TfrmPrincipal.PostHttpFormData(pUrl, pToken : WideString; pPayload : String) : WideString; stdcall;
+var http : THTTPClient;
+    resp, payload : TStringStream;
+    ret : IHTTPResponse;
+    Params : TStringList;
+    keyValuePairs: TArray<string>;
+    pair: string;
+begin
+  result := '';
+  if (pUrl = '') then
+    exit;
+
+  payload := nil;
+  http := THTTPClient.Create;
+  resp := TStringStream.Create;
+  try
+    if (pToken <> '') then
+      http.CustomHeaders['Authorization'] := 'Bearer '+ pToken;
+
+    http.ContentType := 'application/x-www-form-urlencoded';
+
+    if (trim(pPayload) <> '') then
+    begin
+      Params := TStringList.Create;
+
+      // Remover o primeiro caractere "&" da string de entrada e dividir em pares "chave=valor"
+      keyValuePairs := pPayload.Substring(1).Split(['&']);
+
+      // Dividir cada par em chave e valor e adicionar ao TStringList
+      for pair in keyValuePairs do
+      begin
+        Params.Add(pair);
+      end;
+
+    end;
+    ret := http.Post(pUrl, Params, resp);
+
+    if (ret.StatusCode.ToString.Contains('20')) then
+      result := resp.DataString
+    else
+      result := 'erro';
+  finally
+    if (payload <> nil) then
+      payload.Free;
+
     resp.Free;
     http.Free;
   end;

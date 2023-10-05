@@ -32,10 +32,12 @@ type
     Label7: TLabel;
     edtColecaoDelete: TEdit;
     Label8: TLabel;
+    btnRenovaToken: TButton;
     procedure btnGetClick(Sender: TObject);
     procedure btnLoginClick(Sender: TObject);
     procedure btnPostClick(Sender: TObject);
     procedure btnDeleteClick(Sender: TObject);
+    procedure btnRenovaTokenClick(Sender: TObject);
   private
     function ExtractFieldFromJson(const jsonString: WideString; field: string): string;
   public
@@ -111,7 +113,7 @@ begin
     '"updateTime":"2023-10-03T20:36:53.684801Z"' +
     '}';
 
-  url := 'https://firestore.googleapis.com/v1/projects/'+Trim(edtCodigoProjeto.Text)+'/databases/(default)/documents/'+ Trim(edtColecaoGet.Text)'/';
+  url := 'https://firestore.googleapis.com/v1/projects/'+Trim(edtCodigoProjeto.Text)+'/databases/(default)/documents/'+Trim(edtColecaoPost.Text)+'/';
   response := PostHttp(url, mmToken.Text, jsonRequest);
 
   //Pega o valor que esta no json retornado na field passada de parametro
@@ -127,6 +129,13 @@ begin
 
   edtIdDocumento.Text := idDocument;
   Memo1.Text := response;
+end;
+
+procedure TfrmPrincipal.btnRenovaTokenClick(Sender: TObject);
+var urlPost, retornoTokenAtualizado : WideString;
+begin
+  urlPost := 'https://securetoken.googleapis.com/v1/token?key=AIzaSyCHI2Cqm5FowD-mJbRPrKPoVidH_CZHF74';
+  retornoTokenAtualizado := PostHttpFormData(urlPost, '', 'grant_type=refresh_token&refresh_token=' + config.pos_token_refresh);
 end;
 
 function TfrmPrincipal.autenticarUsuario(const email,

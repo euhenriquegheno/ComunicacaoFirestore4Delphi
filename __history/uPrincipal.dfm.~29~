@@ -29,7 +29,7 @@ object frmPrincipal: TfrmPrincipal
   end
   object Label3: TLabel
     Left = 15
-    Top = 206
+    Top = 262
     Width = 67
     Height = 13
     Caption = 'Id Documento'
@@ -47,6 +47,27 @@ object frmPrincipal: TfrmPrincipal
     Width = 83
     Height = 13
     Caption = 'C'#243'digo do projeto'
+  end
+  object Label6: TLabel
+    Left = 25
+    Top = 83
+    Width = 64
+    Height = 13
+    Caption = 'Cole'#231#227'o GET'
+  end
+  object Label7: TLabel
+    Left = 241
+    Top = 83
+    Width = 71
+    Height = 13
+    Caption = 'Cole'#231#227'o POST'
+  end
+  object Label8: TLabel
+    Left = 462
+    Top = 83
+    Width = 84
+    Height = 13
+    Caption = 'Cole'#231#227'o DELETE'
   end
   object edtUserEmail: TEdit
     Left = 88
@@ -74,7 +95,6 @@ object frmPrincipal: TfrmPrincipal
       '')
     ScrollBars = ssVertical
     TabOrder = 2
-    ExplicitTop = 152
   end
   object btnLogin: TButton
     Left = 600
@@ -87,7 +107,7 @@ object frmPrincipal: TfrmPrincipal
   end
   object btnGet: TButton
     Left = 160
-    Top = 240
+    Top = 216
     Width = 105
     Height = 25
     Caption = 'Get'
@@ -96,7 +116,7 @@ object frmPrincipal: TfrmPrincipal
   end
   object btnPost: TButton
     Left = 288
-    Top = 240
+    Top = 216
     Width = 105
     Height = 25
     Caption = 'Post'
@@ -105,7 +125,7 @@ object frmPrincipal: TfrmPrincipal
   end
   object btnDelete: TButton
     Left = 424
-    Top = 240
+    Top = 216
     Width = 105
     Height = 25
     Caption = 'Delete'
@@ -122,12 +142,11 @@ object frmPrincipal: TfrmPrincipal
       '')
     ScrollBars = ssVertical
     TabOrder = 7
-    ExplicitTop = 304
   end
   object edtIdDocumento: TEdit
     Left = 88
-    Top = 203
-    Width = 217
+    Top = 259
+    Width = 232
     Height = 21
     TabOrder = 8
   end
@@ -144,5 +163,38 @@ object frmPrincipal: TfrmPrincipal
     Width = 545
     Height = 21
     TabOrder = 10
+  end
+  object edtColecaoGet: TEdit
+    Left = 95
+    Top = 80
+    Width = 121
+    Height = 21
+    TabOrder = 11
+    TextHint = 'VendasPagas'
+  end
+  object edtColecaoPost: TEdit
+    Left = 318
+    Top = 80
+    Width = 121
+    Height = 21
+    TabOrder = 12
+    TextHint = 'Vendas'
+  end
+  object edtColecaoDelete: TEdit
+    Left = 552
+    Top = 80
+    Width = 121
+    Height = 21
+    TabOrder = 13
+    TextHint = 'Vendas'
+  end
+  object btnRenovaToken: TButton
+    Left = 560
+    Top = 216
+    Width = 105
+    Height = 25
+    Caption = 'Renova Token'
+    TabOrder = 14
+    OnClick = btnDeleteClick
   end
 end

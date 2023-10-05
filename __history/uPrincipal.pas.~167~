@@ -32,10 +32,12 @@ type
     Label7: TLabel;
     edtColecaoDelete: TEdit;
     Label8: TLabel;
+    btnRenovaToken: TButton;
     procedure btnGetClick(Sender: TObject);
     procedure btnLoginClick(Sender: TObject);
     procedure btnPostClick(Sender: TObject);
     procedure btnDeleteClick(Sender: TObject);
+    procedure btnRenovaTokenClick(Sender: TObject);
   private
     function ExtractFieldFromJson(const jsonString: WideString; field: string): string;
   public
@@ -58,7 +60,7 @@ procedure TfrmPrincipal.btnDeleteClick(Sender: TObject);
 var response, url : WideString;
 begin
   //DELETA COBRANCA GERADA
-  url := 'https://firestore.googleapis.com/v1/projects/'+Trim(edtCodigoProjeto.Text)+'/databases/(default)/documents/'+ Trim(edtColecaoGet.Text)+'/' + edtIdDocumento.Text;
+  url := 'https://firestore.googleapis.com/v1/projects/'+Trim(edtCodigoProjeto.Text)+'/databases/(default)/documents/'+Trim(edtColecaoDelete.Text)+'/' + edtIdDocumento.Text;
   response := DeleteHttp(url, mmToken.Text);
   Memo1.Text := response;
 end;
@@ -67,7 +69,7 @@ procedure TfrmPrincipal.btnGetClick(Sender: TObject);
 var response, url : WideString;
 begin
   //PUXA TODAS AS COBRANCAS PAGAS, PARA FILTRAR UMA ESPECIFICA COLOCAR NO FINAL DO LINK O ID DO DOCUMENTO
-  url := 'https://firestore.googleapis.com/v1/projects/'+Trim(edtCodigoProjeto.Text)+'/databases/(default)/documents/' + Trim(edtColecaoGet.Text);
+  url := 'https://firestore.googleapis.com/v1/projects/'+Trim(edtCodigoProjeto.Text)+'/databases/(default)/documents/'+Trim(edtColecaoGet.Text);
   response := GetHttp(url, mmToken.Text);
   Memo1.Text := response;
 end;
@@ -111,7 +113,7 @@ begin
     '"updateTime":"2023-10-03T20:36:53.684801Z"' +
     '}';
 
-  url := 'https://firestore.googleapis.com/v1/projects/'+Trim(edtCodigoProjeto.Text)+'/databases/(default)/documents/Vendas/';
+  url := 'https://firestore.googleapis.com/v1/projects/'+Trim(edtCodigoProjeto.Text)+'/databases/(default)/documents/'+Trim(edtColecaoPost.Text)+'/';
   response := PostHttp(url, mmToken.Text, jsonRequest);
 
   //Pega o valor que esta no json retornado na field passada de parametro
@@ -127,6 +129,12 @@ begin
 
   edtIdDocumento.Text := idDocument;
   Memo1.Text := response;
+end;
+
+procedure TfrmPrincipal.btnRenovaTokenClick(Sender: TObject);
+begin
+  urlPost := 'https://securetoken.googleapis.com/v1/token?key=AIzaSyCHI2Cqm5FowD-mJbRPrKPoVidH_CZHF74';
+    retornoTokenAtualizado := PostHttpFormData(urlPost, '', 'grant_type=refresh_token&refresh_token=' + config.pos_token_refresh);
 end;
 
 function TfrmPrincipal.autenticarUsuario(const email,
