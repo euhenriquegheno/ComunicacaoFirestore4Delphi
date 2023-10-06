@@ -15,21 +15,21 @@ object frmPrincipal: TfrmPrincipal
   TextHeight = 13
   object Label1: TLabel
     Left = 32
-    Top = 181
+    Top = 141
     Width = 52
     Height = 13
     Caption = 'User email:'
   end
   object Label2: TLabel
     Left = 328
-    Top = 181
+    Top = 141
     Width = 31
     Height = 13
     Caption = 'Senha'
   end
   object Label3: TLabel
     Left = 15
-    Top = 262
+    Top = 222
     Width = 67
     Height = 13
     Caption = 'Id Documento'
@@ -71,7 +71,7 @@ object frmPrincipal: TfrmPrincipal
   end
   object edtUserEmail: TEdit
     Left = 88
-    Top = 176
+    Top = 136
     Width = 232
     Height = 21
     TabOrder = 0
@@ -79,7 +79,7 @@ object frmPrincipal: TfrmPrincipal
   end
   object edtSenha: TEdit
     Left = 368
-    Top = 176
+    Top = 136
     Width = 217
     Height = 21
     TabOrder = 1
@@ -87,18 +87,19 @@ object frmPrincipal: TfrmPrincipal
   end
   object mmToken: TMemo
     Left = 0
-    Top = 298
+    Top = 328
     Width = 691
-    Height = 152
+    Height = 122
     Align = alBottom
     Lines.Strings = (
       '')
     ScrollBars = ssVertical
     TabOrder = 2
+    ExplicitTop = 358
   end
   object btnLogin: TButton
     Left = 600
-    Top = 171
+    Top = 131
     Width = 73
     Height = 25
     Caption = 'Login'
@@ -106,8 +107,8 @@ object frmPrincipal: TfrmPrincipal
     OnClick = btnLoginClick
   end
   object btnGet: TButton
-    Left = 160
-    Top = 216
+    Left = 96
+    Top = 176
     Width = 105
     Height = 25
     Caption = 'Get'
@@ -115,8 +116,8 @@ object frmPrincipal: TfrmPrincipal
     OnClick = btnGetClick
   end
   object btnPost: TButton
-    Left = 288
-    Top = 216
+    Left = 224
+    Top = 176
     Width = 105
     Height = 25
     Caption = 'Post'
@@ -124,8 +125,8 @@ object frmPrincipal: TfrmPrincipal
     OnClick = btnPostClick
   end
   object btnDelete: TButton
-    Left = 424
-    Top = 216
+    Left = 360
+    Top = 176
     Width = 105
     Height = 25
     Caption = 'Delete'
@@ -145,7 +146,7 @@ object frmPrincipal: TfrmPrincipal
   end
   object edtIdDocumento: TEdit
     Left = 88
-    Top = 259
+    Top = 219
     Width = 232
     Height = 21
     TabOrder = 8
@@ -188,13 +189,24 @@ object frmPrincipal: TfrmPrincipal
     TabOrder = 13
     TextHint = 'Vendas'
   end
-  object Button1: TButton
-    Left = 560
-    Top = 216
+  object btnRenovaToken: TButton
+    Left = 496
+    Top = 176
     Width = 105
     Height = 25
-    Caption = 'Delete'
+    Caption = 'Renova Token'
     TabOrder = 14
-    OnClick = btnDeleteClick
+    OnClick = btnRenovaTokenClick
+  end
+  object mmRefreshToken: TMemo
+    Left = 0
+    Top = 264
+    Width = 691
+    Height = 64
+    Align = alBottom
+    Lines.Strings = (
+      '')
+    ScrollBars = ssVertical
+    TabOrder = 15
   end
 end

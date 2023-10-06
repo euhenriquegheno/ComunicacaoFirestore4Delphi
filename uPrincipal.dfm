@@ -1,17 +1,15 @@
 object frmPrincipal: TfrmPrincipal
   Left = 192
   Top = 145
-  Caption = 'Principal'
-  ClientHeight = 592
-  ClientWidth = 691
+  Caption = 'Comunica'#231#227'o com Firestore'
+  ClientHeight = 591
+  ClientWidth = 687
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'MS Sans Serif'
   Font.Style = []
-  OldCreateOrder = False
-  PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel
     Left = 32
@@ -28,11 +26,11 @@ object frmPrincipal: TfrmPrincipal
     Caption = 'Senha'
   end
   object Label3: TLabel
-    Left = 15
-    Top = 222
-    Width = 67
+    Left = 213
+    Top = 217
+    Width = 265
     Height = 13
-    Caption = 'Id Documento'
+    Caption = 'Id do Documento salvo ou preencher para filtrar no GET'
   end
   object Label4: TLabel
     Left = 15
@@ -75,7 +73,7 @@ object frmPrincipal: TfrmPrincipal
     Width = 232
     Height = 21
     TabOrder = 0
-    Text = 'suporte@alfasistemas.com.br'
+    TextHint = 'uses@user.com'
   end
   object edtSenha: TEdit
     Left = 368
@@ -83,19 +81,18 @@ object frmPrincipal: TfrmPrincipal
     Width = 217
     Height = 21
     TabOrder = 1
-    Text = '#123alfa321@'
+    TextHint = 'password'
   end
   object mmToken: TMemo
     Left = 0
-    Top = 328
-    Width = 691
-    Height = 122
+    Top = 336
+    Width = 687
+    Height = 113
     Align = alBottom
     Lines.Strings = (
-      '')
+      'ID TOKEN')
     ScrollBars = ssVertical
     TabOrder = 2
-    ExplicitTop = 358
   end
   object btnLogin: TButton
     Left = 600
@@ -135,18 +132,18 @@ object frmPrincipal: TfrmPrincipal
   end
   object Memo1: TMemo
     Left = 0
-    Top = 450
-    Width = 691
+    Top = 449
+    Width = 687
     Height = 142
     Align = alBottom
     Lines.Strings = (
-      '')
+      'RETORNOS API')
     ScrollBars = ssVertical
     TabOrder = 7
   end
   object edtIdDocumento: TEdit
-    Left = 88
-    Top = 219
+    Left = 227
+    Top = 236
     Width = 232
     Height = 21
     TabOrder = 8
@@ -200,13 +197,14 @@ object frmPrincipal: TfrmPrincipal
   end
   object mmRefreshToken: TMemo
     Left = 0
-    Top = 264
-    Width = 691
+    Top = 272
+    Width = 687
     Height = 64
     Align = alBottom
     Lines.Strings = (
-      '')
+      'TOKEN REFRESH')
     ScrollBars = ssVertical
     TabOrder = 15
+    ExplicitTop = 263
   end
 end

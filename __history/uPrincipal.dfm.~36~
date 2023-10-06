@@ -1,35 +1,33 @@
 object frmPrincipal: TfrmPrincipal
   Left = 192
   Top = 145
-  Caption = 'Principal'
-  ClientHeight = 592
-  ClientWidth = 691
+  Caption = 'Comunica'#231#227'o com Firestore'
+  ClientHeight = 591
+  ClientWidth = 687
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'MS Sans Serif'
   Font.Style = []
-  OldCreateOrder = False
-  PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel
     Left = 32
-    Top = 181
+    Top = 141
     Width = 52
     Height = 13
     Caption = 'User email:'
   end
   object Label2: TLabel
     Left = 328
-    Top = 181
+    Top = 141
     Width = 31
     Height = 13
     Caption = 'Senha'
   end
   object Label3: TLabel
     Left = 15
-    Top = 206
+    Top = 222
     Width = 67
     Height = 13
     Caption = 'Id Documento'
@@ -71,35 +69,34 @@ object frmPrincipal: TfrmPrincipal
   end
   object edtUserEmail: TEdit
     Left = 88
-    Top = 176
+    Top = 136
     Width = 232
     Height = 21
     TabOrder = 0
-    Text = 'suporte@alfasistemas.com.br'
+    TextHint = 'uses@user.com'
   end
   object edtSenha: TEdit
     Left = 368
-    Top = 176
+    Top = 136
     Width = 217
     Height = 21
     TabOrder = 1
-    Text = '#123alfa321@'
+    TextHint = 'password'
   end
   object mmToken: TMemo
     Left = 0
-    Top = 298
-    Width = 691
-    Height = 152
+    Top = 327
+    Width = 687
+    Height = 122
     Align = alBottom
     Lines.Strings = (
-      '')
+      'ID TOKEN')
     ScrollBars = ssVertical
     TabOrder = 2
-    ExplicitTop = 152
   end
   object btnLogin: TButton
     Left = 600
-    Top = 171
+    Top = 131
     Width = 73
     Height = 25
     Caption = 'Login'
@@ -107,8 +104,8 @@ object frmPrincipal: TfrmPrincipal
     OnClick = btnLoginClick
   end
   object btnGet: TButton
-    Left = 160
-    Top = 240
+    Left = 96
+    Top = 176
     Width = 105
     Height = 25
     Caption = 'Get'
@@ -116,8 +113,8 @@ object frmPrincipal: TfrmPrincipal
     OnClick = btnGetClick
   end
   object btnPost: TButton
-    Left = 288
-    Top = 240
+    Left = 224
+    Top = 176
     Width = 105
     Height = 25
     Caption = 'Post'
@@ -125,8 +122,8 @@ object frmPrincipal: TfrmPrincipal
     OnClick = btnPostClick
   end
   object btnDelete: TButton
-    Left = 424
-    Top = 240
+    Left = 360
+    Top = 176
     Width = 105
     Height = 25
     Caption = 'Delete'
@@ -135,20 +132,19 @@ object frmPrincipal: TfrmPrincipal
   end
   object Memo1: TMemo
     Left = 0
-    Top = 450
-    Width = 691
+    Top = 449
+    Width = 687
     Height = 142
     Align = alBottom
     Lines.Strings = (
-      '')
+      'RETORNOS API')
     ScrollBars = ssVertical
     TabOrder = 7
-    ExplicitTop = 304
   end
   object edtIdDocumento: TEdit
     Left = 88
-    Top = 203
-    Width = 217
+    Top = 219
+    Width = 232
     Height = 21
     TabOrder = 8
   end
@@ -189,5 +185,25 @@ object frmPrincipal: TfrmPrincipal
     Height = 21
     TabOrder = 13
     TextHint = 'Vendas'
+  end
+  object btnRenovaToken: TButton
+    Left = 496
+    Top = 176
+    Width = 105
+    Height = 25
+    Caption = 'Renova Token'
+    TabOrder = 14
+    OnClick = btnRenovaTokenClick
+  end
+  object mmRefreshToken: TMemo
+    Left = 0
+    Top = 263
+    Width = 687
+    Height = 64
+    Align = alBottom
+    Lines.Strings = (
+      'TOKEN REFRESH')
+    ScrollBars = ssVertical
+    TabOrder = 15
   end
 end
