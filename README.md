@@ -8,10 +8,16 @@ A baixo explicarei como configurar e usar para testes.
 
 ## Campo de preenchimento obrigatório
 
-Chave de API da Web;
-Código do projeto;
-Email e Senha para autenticação e captura do TOKEN;
+ 1. Chave de API da Web;
+ 2. Código do projeto;
+ 3. E-mail e Senha para autenticação e captura do TOKEN;
 
+## Login e Captura de Token
+O login é necessário para recebermos o "Token" de comunicação com a API. La receberemos também o "Refresh Token" que será utilizado para renovação de token quando ele é vencido.
+
+## Renovação de Token
+A renovação de "Token" é necessária, pois após 1 hora ele vence. Para continuar mandando requisições, terá q ter o Token sempre valido.
+Com a função de renovação de Token, não é necessário ficar fazendo login toda vez, apenas chamar essa função.
 
 ## Métodos HTTP
 
@@ -23,3 +29,4 @@ No método post é enviado um .JSON, deixei um modelo de exemplo de como ele dev
 Após o post ter dado sucesso, o "Id do Documento" aparecera no campo "Id do Documento".
 
 **DELETE**: Para efetuar um delete, é necessário preencher o campo "Coleção DELETE" e ter feito o login para ter o Token guardado. Será necessário ter preenchido o "Id do Documento" que deseja que seja excluído.
+
