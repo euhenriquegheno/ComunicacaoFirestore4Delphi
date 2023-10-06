@@ -12,8 +12,8 @@ A baixo explicarei como configurar e usar para testes.
  2. Código do projeto;
  3. E-mail e Senha para autenticação e captura do TOKEN;
 
-## Login e Captura de Token
-O login é necessário para recebermos o "Token" de comunicação com a API. La receberemos também o "Refresh Token" que será utilizado para renovação de token quando ele é vencido.
+## Autenticação e Captura de Token
+O autenticação é necessário para recebermos o "Token" de comunicação com a API. La receberemos também o "Refresh Token" que será utilizado para renovação de token quando ele é vencido.
 
 ## Renovação de Token
 A renovação de "Token" é necessária, pois após 1 hora ele vence. Para continuar mandando requisições, terá q ter o Token sempre valido.
