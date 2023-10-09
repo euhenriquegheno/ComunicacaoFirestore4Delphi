@@ -33,6 +33,7 @@ type
     edtColecaoDelete: TEdit;
     Label8: TLabel;
     btnRenovaToken: TButton;
+    mmRefreshToken: TMemo;
     procedure btnGetClick(Sender: TObject);
     procedure btnLoginClick(Sender: TObject);
     procedure btnPostClick(Sender: TObject);
@@ -135,8 +136,8 @@ end;
 procedure TfrmPrincipal.btnRenovaTokenClick(Sender: TObject);
 var urlPost, retornoTokenAtualizado : WideString;
 begin
-  urlPost := 'https://securetoken.googleapis.com/v1/token?key=AIzaSyCHI2Cqm5FowD-mJbRPrKPoVidH_CZHF74';
-  retornoTokenAtualizado := PostHttpFormData(urlPost, '', 'grant_type=refresh_token&refresh_token=' + config.pos_token_refresh);
+  urlPost := 'https://securetoken.googleapis.com/v1/token?key=' + edtChaveApiWeb.Text;
+  retornoTokenAtualizado := PostHttpFormData(urlPost, '', '&grant_type=refresh_token&refresh_token=' + mmRefreshToken.Text);
 end;
 
 function TfrmPrincipal.autenticarUsuario(const email,
@@ -151,6 +152,7 @@ begin
   response := PostHttp(url, '', jsonRequest);
 
   idToken := ExtractFieldFromJson(response, 'idToken');
+  mmRefreshToken.Text := ExtractFieldFromJson(response, 'refreshToken');
   mmToken.Text := idToken;
 end;
 

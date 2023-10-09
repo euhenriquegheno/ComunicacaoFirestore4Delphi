@@ -42,17 +42,20 @@ type
   private
     function ExtractFieldFromJson(const jsonString: WideString; field: string): string;
   public
+    //Função de autenticação do usuario e captura de token e refresh token
     function autenticarUsuario(const email, password : string): string;
+    //Função POST
     function PostHttp(pUrl, pToken, pPayload : WideString) : WideString;
+    //Função POST FORM DATA
     function PostHttpFormData(pUrl, pToken : WideString; pPayload : String) : WideString; stdcall;
+    //Função GET
     function GetHttp(pUrl, pToken : WideString) : WideString;
+    //Função DELETE
     function DeleteHttp(pUrl, pToken : WideString): WideString;
   end;
 
 var
   frmPrincipal: TfrmPrincipal;
-
-//  function PostHttp(pUrl, pToken, pPayload : WideString) : WideString; stdcall; external 'metodosHttp.dll';
 
 implementation
 
