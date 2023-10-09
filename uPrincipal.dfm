@@ -69,7 +69,7 @@ object frmPrincipal: TfrmPrincipal
     Height = 13
     Caption = 'Cole'#231#227'o DELETE'
   end
-  object edtUserEmail: TEdit
+  object EdtUserEmail: TEdit
     Left = 88
     Top = 136
     Width = 232
@@ -77,7 +77,7 @@ object frmPrincipal: TfrmPrincipal
     TabOrder = 0
     TextHint = 'uses@user.com'
   end
-  object edtSenha: TEdit
+  object EdtSenha: TEdit
     Left = 368
     Top = 136
     Width = 217
@@ -85,7 +85,7 @@ object frmPrincipal: TfrmPrincipal
     TabOrder = 1
     TextHint = 'password'
   end
-  object mmToken: TMemo
+  object MmToken: TMemo
     Left = 0
     Top = 336
     Width = 687
@@ -96,43 +96,43 @@ object frmPrincipal: TfrmPrincipal
     ScrollBars = ssVertical
     TabOrder = 2
   end
-  object btnLogin: TButton
+  object BtnLogin: TButton
     Left = 600
     Top = 131
     Width = 73
     Height = 25
     Caption = 'Login'
     TabOrder = 3
-    OnClick = btnLoginClick
+    OnClick = BtnLoginClick
   end
-  object btnGet: TButton
+  object BtnGet: TButton
     Left = 96
     Top = 176
     Width = 105
     Height = 25
     Caption = 'Get'
     TabOrder = 4
-    OnClick = btnGetClick
+    OnClick = BtnGetClick
   end
-  object btnPost: TButton
+  object BtnPost: TButton
     Left = 224
     Top = 176
     Width = 105
     Height = 25
     Caption = 'Post'
     TabOrder = 5
-    OnClick = btnPostClick
+    OnClick = BtnPostClick
   end
-  object btnDelete: TButton
+  object BtnDelete: TButton
     Left = 360
     Top = 176
     Width = 105
     Height = 25
     Caption = 'Delete'
     TabOrder = 6
-    OnClick = btnDeleteClick
+    OnClick = BtnDeleteClick
   end
-  object Memo1: TMemo
+  object MmRetornoApi: TMemo
     Left = 0
     Top = 449
     Width = 687
@@ -143,28 +143,28 @@ object frmPrincipal: TfrmPrincipal
     ScrollBars = ssVertical
     TabOrder = 7
   end
-  object edtIdDocumento: TEdit
+  object EdtIdDocumento: TEdit
     Left = 227
     Top = 236
     Width = 232
     Height = 21
     TabOrder = 8
   end
-  object edtChaveApiWeb: TEdit
+  object EdtChaveApiWeb: TEdit
     Left = 128
     Top = 10
     Width = 545
     Height = 21
     TabOrder = 9
   end
-  object edtCodigoProjeto: TEdit
+  object EdtCodigoProjeto: TEdit
     Left = 128
     Top = 37
     Width = 545
     Height = 21
     TabOrder = 10
   end
-  object edtColecaoGet: TEdit
+  object EdtColecaoGet: TEdit
     Left = 95
     Top = 80
     Width = 121
@@ -172,7 +172,7 @@ object frmPrincipal: TfrmPrincipal
     TabOrder = 11
     TextHint = 'VendasPagas'
   end
-  object edtColecaoPost: TEdit
+  object EdtColecaoPost: TEdit
     Left = 318
     Top = 80
     Width = 121
@@ -180,7 +180,7 @@ object frmPrincipal: TfrmPrincipal
     TabOrder = 12
     TextHint = 'Vendas'
   end
-  object edtColecaoDelete: TEdit
+  object EdtColecaoDelete: TEdit
     Left = 552
     Top = 80
     Width = 121
@@ -188,16 +188,16 @@ object frmPrincipal: TfrmPrincipal
     TabOrder = 13
     TextHint = 'Vendas'
   end
-  object btnRenovaToken: TButton
+  object BtnRenovaToken: TButton
     Left = 496
     Top = 176
     Width = 105
     Height = 25
     Caption = 'Renova Token'
     TabOrder = 14
-    OnClick = btnRenovaTokenClick
+    OnClick = BtnRenovaTokenClick
   end
-  object mmRefreshToken: TMemo
+  object MmRefreshToken: TMemo
     Left = 0
     Top = 272
     Width = 687

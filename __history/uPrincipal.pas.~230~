@@ -65,7 +65,7 @@ procedure TfrmPrincipal.BtnDeleteClick(Sender: TObject);
 var Response, Url : WideString;
 begin
   //DELETA COBRANCA GERADA
-  Url := 'https://firestore.googleapis.com/v1/projects/'+Trim(EdtCodigoProjeto.Text)+'/databases/(default)/documents/'+Trim(EdtColecaoDelete.Text)+'/' + edtIdDocumento.Text;
+  Url := 'https://firestore.googleapis.com/v1/projects/'+Trim(edtCodigoProjeto.Text)+'/databases/(default)/documents/'+Trim(edtColecaoDelete.Text)+'/' + edtIdDocumento.Text;
   Response := DeleteHttp(Url, MmToken.Text);
   MmRetornoApi.Text := Response;
 end;
@@ -74,7 +74,7 @@ procedure TfrmPrincipal.BtnGetClick(Sender: TObject);
 var response, url : WideString;
 begin
   //PUXA TODAS AS COBRANCAS PAGAS, PARA FILTRAR UMA ESPECIFICA COLOCAR NO FINAL DO LINK O ID DO DOCUMENTO
-  Url := 'https://firestore.googleapis.com/v1/projects/'+Trim(EdtCodigoProjeto.Text)+'/databases/(default)/documents/'+Trim(EdtColecaoGet.Text);
+  Url := 'https://firestore.googleapis.com/v1/projects/'+Trim(edtCodigoProjeto.Text)+'/databases/(default)/documents/'+Trim(edtColecaoGet.Text);
   Response := GetHttp(Url, MmToken.Text);
   MmRetornoApi.Text := Response;
 end;

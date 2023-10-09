@@ -10,81 +10,84 @@ uses
 
 type
   TfrmPrincipal = class(TForm)
-    edtUserEmail: TEdit;
-    edtSenha: TEdit;
+    EdtUserEmail: TEdit;
+    EdtSenha: TEdit;
     Label1: TLabel;
     Label2: TLabel;
-    mmToken: TMemo;
-    btnLogin: TButton;
-    btnGet: TButton;
-    btnPost: TButton;
-    btnDelete: TButton;
-    Memo1: TMemo;
-    edtIdDocumento: TEdit;
+    MmToken: TMemo;
+    BtnLogin: TButton;
+    BtnGet: TButton;
+    BtnPost: TButton;
+    BtnDelete: TButton;
+    MmRetornoApi: TMemo;
+    EdtIdDocumento: TEdit;
     Label3: TLabel;
-    edtChaveApiWeb: TEdit;
+    EdtChaveApiWeb: TEdit;
     Label4: TLabel;
-    edtCodigoProjeto: TEdit;
+    EdtCodigoProjeto: TEdit;
     Label5: TLabel;
-    edtColecaoGet: TEdit;
+    EdtColecaoGet: TEdit;
     Label6: TLabel;
-    edtColecaoPost: TEdit;
+    EdtColecaoPost: TEdit;
     Label7: TLabel;
-    edtColecaoDelete: TEdit;
+    EdtColecaoDelete: TEdit;
     Label8: TLabel;
-    btnRenovaToken: TButton;
-    mmRefreshToken: TMemo;
-    procedure btnGetClick(Sender: TObject);
-    procedure btnLoginClick(Sender: TObject);
-    procedure btnPostClick(Sender: TObject);
-    procedure btnDeleteClick(Sender: TObject);
-    procedure btnRenovaTokenClick(Sender: TObject);
+    BtnRenovaToken: TButton;
+    MmRefreshToken: TMemo;
+    procedure BtnGetClick(Sender: TObject);
+    procedure BtnLoginClick(Sender: TObject);
+    procedure BtnPostClick(Sender: TObject);
+    procedure BtnDeleteClick(Sender: TObject);
+    procedure BtnRenovaTokenClick(Sender: TObject);
   private
     function ExtractFieldFromJson(const jsonString: WideString; field: string): string;
   public
-    function autenticarUsuario(const email, password : string): string;
+    //Função de autenticação do usuario e captura de token e refresh token
+    function AutenticarUsuario(const email, password : string): string;
+    //Função POST
     function PostHttp(pUrl, pToken, pPayload : WideString) : WideString;
+    //Função POST FORM DATA
     function PostHttpFormData(pUrl, pToken : WideString; pPayload : String) : WideString; stdcall;
+    //Função GET
     function GetHttp(pUrl, pToken : WideString) : WideString;
+    //Função DELETE
     function DeleteHttp(pUrl, pToken : WideString): WideString;
   end;
 
 var
   frmPrincipal: TfrmPrincipal;
 
-//  function PostHttp(pUrl, pToken, pPayload : WideString) : WideString; stdcall; external 'metodosHttp.dll';
-
 implementation
 
 {$R *.dfm}
 
-procedure TfrmPrincipal.btnDeleteClick(Sender: TObject);
-var response, url : WideString;
+procedure TfrmPrincipal.BtnDeleteClick(Sender: TObject);
+var Response, Url : WideString;
 begin
   //DELETA COBRANCA GERADA
-  url := 'https://firestore.googleapis.com/v1/projects/'+Trim(edtCodigoProjeto.Text)+'/databases/(default)/documents/'+Trim(edtColecaoDelete.Text)+'/' + edtIdDocumento.Text;
-  response := DeleteHttp(url, mmToken.Text);
-  Memo1.Text := response;
+  Url := 'https://firestore.googleapis.com/v1/projects/'+Trim(edtCodigoProjeto.Text)+'/databases/(default)/documents/'+Trim(edtColecaoDelete.Text)+'/' + edtIdDocumento.Text;
+  Response := DeleteHttp(Url, MmToken.Text);
+  MmRetornoApi.Text := Response;
 end;
 
-procedure TfrmPrincipal.btnGetClick(Sender: TObject);
+procedure TfrmPrincipal.BtnGetClick(Sender: TObject);
 var response, url : WideString;
 begin
   //PUXA TODAS AS COBRANCAS PAGAS, PARA FILTRAR UMA ESPECIFICA COLOCAR NO FINAL DO LINK O ID DO DOCUMENTO
-  url := 'https://firestore.googleapis.com/v1/projects/'+Trim(edtCodigoProjeto.Text)+'/databases/(default)/documents/'+Trim(edtColecaoGet.Text);
-  response := GetHttp(url, mmToken.Text);
-  Memo1.Text := response;
+  Url := 'https://firestore.googleapis.com/v1/projects/'+Trim(edtCodigoProjeto.Text)+'/databases/(default)/documents/'+Trim(edtColecaoGet.Text);
+  Response := GetHttp(Url, MmToken.Text);
+  MmRetornoApi.Text := Response;
 end;
 
-procedure TfrmPrincipal.btnPostClick(Sender: TObject);
-var response, jsonRequest : WideString;
-  url, fieldName, idDocument: string;
-  lastSlashPos : Integer;
+procedure TfrmPrincipal.BtnPostClick(Sender: TObject);
+var Response, JsonRequest : WideString;
+  Url, FieldName, IdDocument: String;
+  LastSlashPos : Integer;
 begin
   //CRIA UMA COBRANÇA
 
   //MODELO DO JSON
-  jsonRequest := '{' +
+  JsonRequest := '{' +
     '"fields":{' +
       '"formaPagamento":{' +
         '"stringValue":"debito"' +
@@ -115,142 +118,142 @@ begin
     '"updateTime":"2023-10-03T20:36:53.684801Z"' +
     '}';
 
-  url := 'https://firestore.googleapis.com/v1/projects/'+Trim(edtCodigoProjeto.Text)+'/databases/(default)/documents/'+Trim(edtColecaoPost.Text)+'/';
-  response := PostHttp(url, mmToken.Text, jsonRequest);
+  Url := 'https://firestore.googleapis.com/v1/projects/'+Trim(EdtCodigoProjeto.Text)+'/databases/(default)/documents/'+Trim(EdtColecaoPost.Text)+'/';
+  Response := PostHttp(Url, MmToken.Text, JsonRequest);
 
   //Pega o valor que esta no json retornado na field passada de parametro
-  fieldName := ExtractFieldFromJson(response, 'name');
+  FieldName := ExtractFieldFromJson(Response, 'name');
 
   // Encontra a posição da última barra na string
-  lastSlashPos := LastDelimiter('/', fieldName);
+  LastSlashPos := LastDelimiter('/', FieldName);
 
-  if lastSlashPos > 0 then
-    idDocument := Copy(fieldName, LastSlashPos + 1, Length(fieldName) - LastSlashPos) // Extrai o conteúdo após a última barra
+  if (LastSlashPos > 0) then
+    IdDocument := Copy(FieldName, LastSlashPos + 1, Length(FieldName) - LastSlashPos) // Extrai o conteúdo após a última barra
   else
-    idDocument := fieldName; // Se não houver barra na string, o resultado é a própria string
+    IdDocument := FieldName; // Se não houver barra na string, o resultado é a própria string
 
-  edtIdDocumento.Text := idDocument;
-  Memo1.Text := response;
+  EdtIdDocumento.Text := IdDocument;
+  MmRetornoApi.Text := Response;
 end;
 
-procedure TfrmPrincipal.btnRenovaTokenClick(Sender: TObject);
-var urlPost, retornoTokenAtualizado : WideString;
+procedure TfrmPrincipal.BtnRenovaTokenClick(Sender: TObject);
+var UrlPost, RetornoTokenAtualizado : WideString;
 begin
-  urlPost := 'https://securetoken.googleapis.com/v1/token?key=' + edtChaveApiWeb.Text;
-  retornoTokenAtualizado := PostHttpFormData(urlPost, '', '&grant_type=refresh_token&refresh_token=' + mmRefreshToken.Text);
+  UrlPost := 'https://securetoken.googleapis.com/v1/token?key=' + EdtChaveApiWeb.Text;
+  RetornoTokenAtualizado := PostHttpFormData(UrlPost, '', '&grant_type=refresh_token&refresh_token=' + MmRefreshToken.Text);
 end;
 
-function TfrmPrincipal.autenticarUsuario(const email,
-  password: string): string;
-var response, jsonRequest : WideString;
-  url, idToken : string;
+function TfrmPrincipal.AutenticarUsuario(const Email,
+  Password: string): string;
+var Response, JsonRequest : WideString;
+  UrlPost, IdToken : string;
 begin
   //LOGAR COM O USUARIO E CAPTURAR O TOKEN
-  jsonRequest := '{"email":"' + Email + '","password":"' + Password + '","returnSecureToken":true}';
+  JsonRequest := '{"email":"' + Email + '","password":"' + Password + '","returnSecureToken":true}';
 
-  url := 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' + Trim(edtChaveApiWeb.Text);
-  response := PostHttp(url, '', jsonRequest);
+  UrlPost := 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' + Trim(EdtChaveApiWeb.Text);
+  Response := PostHttp(UrlPost, '', JsonRequest);
 
-  idToken := ExtractFieldFromJson(response, 'idToken');
-  mmRefreshToken.Text := ExtractFieldFromJson(response, 'refreshToken');
-  mmToken.Text := idToken;
+  IdToken := ExtractFieldFromJson(Response, 'idToken');
+  MmRefreshToken.Text := ExtractFieldFromJson(Response, 'refreshToken');
+  MmToken.Text := IdToken;
 end;
 
-procedure TfrmPrincipal.btnLoginClick(Sender: TObject);
+procedure TfrmPrincipal.BtnLoginClick(Sender: TObject);
 begin
-  autenticarUsuario(edtUserEmail.Text, edtSenha.Text);
+  AutenticarUsuario(EdtUserEmail.Text, EdtSenha.Text);
 end;
 
 function TfrmPrincipal.ExtractFieldFromJson(
-  const jsonString: WideString; field: string): string;
+  const JsonString: WideString; Field: String): String;
 var
-  jsonObject: TlkJSONobject;
-  fieldObject: TlkJSONbase;
-  fieldContent: string;
+  JsonObject: TlkJSONobject;
+  FieldObject: TlkJSONbase;
+  FieldContent: String;
 begin
   Result := '';
 
   // Cria um objeto JSON a partir da string WideString
-  jsonObject := TlkJSON.ParseText(jsonString) as TlkJSONobject;
+  JsonObject := TlkJSON.ParseText(JsonString) as TlkJSONobject;
   try
     // Verifica se o objeto JSON é atribuído e contém o campo recebido de parametro
-    if Assigned(jsonObject) then
+    if Assigned(JsonObject) then
     begin
-      fieldObject := jsonObject.Field[field];
-      if Assigned(fieldObject) and (fieldObject is TlkJSONstring) then
+      FieldObject := JsonObject.Field[Field];
+      if Assigned(FieldObject) and (FieldObject is TlkJSONstring) then
       begin
         // Converte o objeto para TlkJSONstring e obtém o valor
-        fieldContent := TlkJSONstring(fieldObject).Value;
-        Result := fieldContent;
+        FieldContent := TlkJSONstring(FieldObject).Value;
+        Result := FieldContent;
       end;
     end;
   finally
     // Libera o objeto JSON
-    jsonObject.Free;
+    JsonObject.Free;
   end;
 end;
 
 function TfrmPrincipal.GetHttp(pUrl, pToken: WideString): WideString;
-var http : THTTPClient;
-    resp, response : TStringStream;
-    ret : IHTTPResponse;
+var Http : THTTPClient;
+    Resp, Response : TStringStream;
+    Ret : IHTTPResponse;
 begin
   result := '';
   if (pUrl = '') then
     exit;
 
-  http := THTTPClient.Create;
-  resp := TStringStream.Create;
-  response := TStringStream.Create;
+  Http := THTTPClient.Create;
+  Resp := TStringStream.Create;
+  Response := TStringStream.Create;
   try
     if (pToken <> '') then
-      http.CustomHeaders['Authorization'] := 'Bearer '+ pToken;
+      Http.CustomHeaders['Authorization'] := 'Bearer '+ pToken;
 
-    ret := http.Get(pUrl, response);
+    Ret := Http.Get(pUrl, Response);
 
-    if (ret.StatusCode.ToString.Contains('20')) then
-      result := response.DataString
+    if (Ret.StatusCode.ToString.Contains('20')) then
+      result := Response.DataString
     else
       result := 'erro';
   finally
-    response.Free;
-    resp.Free;
-    http.Free;
+    Response.Free;
+    Resp.Free;
+    Http.Free;
   end;
 end;
 
 function TfrmPrincipal.PostHttp(pUrl, pToken, pPayload: WideString): WideString;
-var http : THTTPClient;
-  resp, payload : TStringStream;
-  ret : IHTTPResponse;
+var Http : THTTPClient;
+  Resp, Payload : TStringStream;
+  Ret : IHTTPResponse;
 begin
   result := '';
   if (pUrl = '') then
     exit;
 
-  payload := nil;
-  http := THTTPClient.Create;
-  resp := TStringStream.Create;
+  Payload := nil;
+  Http := THTTPClient.Create;
+  Resp := TStringStream.Create;
   try
     if (pToken <> '') then
-      http.CustomHeaders['Authorization'] := 'Bearer '+ pToken;
+      Http.CustomHeaders['Authorization'] := 'Bearer '+ pToken;
 
     if (trim(pPayload) <> '') then
     begin
-      payload := TStringStream.Create(pPayload, TEncoding.UTF8);
-      payload.Position := 0;
+      Payload := TStringStream.Create(pPayload, TEncoding.UTF8);
+      Payload.Position := 0;
     end;
-    ret := http.Post(pUrl, payload, resp);
+    Ret := Http.Post(pUrl, Payload, Resp);
 
-    if (ret.StatusCode.ToString.Contains('20')) then
-      result := resp.DataString
+    if (Ret.StatusCode.ToString.Contains('20')) then
+      result := Resp.DataString
     else
-      result := resp.DataString;
+      result := Resp.DataString;
   finally
-    if (payload <> nil) then
-      payload.Free;
+    if (Payload <> nil) then
+      Payload.Free;
 
-    resp.Free;
+    Resp.Free;
     http.Free;
   end;
 end;
