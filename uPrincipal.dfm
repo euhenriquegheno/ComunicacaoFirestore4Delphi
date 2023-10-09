@@ -10,6 +10,8 @@ object frmPrincipal: TfrmPrincipal
   Font.Height = -11
   Font.Name = 'MS Sans Serif'
   Font.Style = []
+  OldCreateOrder = True
+  PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel
     Left = 32
@@ -205,6 +207,5 @@ object frmPrincipal: TfrmPrincipal
       'TOKEN REFRESH')
     ScrollBars = ssVertical
     TabOrder = 15
-    ExplicitTop = 263
   end
 end

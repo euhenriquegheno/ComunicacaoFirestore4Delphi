@@ -136,7 +136,7 @@ end;
 procedure TfrmPrincipal.btnRenovaTokenClick(Sender: TObject);
 var urlPost, retornoTokenAtualizado : WideString;
 begin
-  urlPost := 'https://securetoken.googleapis.com/v1/token?key=AIzaSyCHI2Cqm5FowD-mJbRPrKPoVidH_CZHF74';
+  urlPost := 'https://securetoken.googleapis.com/v1/token?key=' + edtChaveApiWeb.Text;
   retornoTokenAtualizado := PostHttpFormData(urlPost, '', '&grant_type=refresh_token&refresh_token=' + mmRefreshToken.Text);
 end;
 
